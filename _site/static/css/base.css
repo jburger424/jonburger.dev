@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+}
+
+html {
+    font-family: 'Zilla Slab', serif;
+    background: #212121;
+}
+
+main {
+    margin: 12px;
+    color: #b7b7b7;
+    text-align: center;
+}
+
+header {
+    display: block;
+    height: 34px;
+    padding: 6px 12px;
+    background: #252525;
+    color: #44cccc;
+    filter: drop-shadow(1px 1.5px 2px black);
+}
+
+header span#title {
+    font-size: 1.8em;
+}
+
+footer {
+    text-align: center;
+    border-top: 1px solid #b7b7b7;
+    padding: 5px 0;
+    width: 100%;
+    bottom: 5px;
+    position: absolute;
+}
+
+a, footer {
+    color: #44cccc;
+}

@@ -1,0 +1,85 @@
+
+
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="robots" content="noindex">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link href="static/css/base.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <title>
+jonburger.dev
+
+  |
+  home
+
+</title>
+  </head>
+  <body>
+    <header>
+      <span id='title'>
+jonburger.dev
+
+  |
+  home
+
+</span>
+    </header>
+    <main>
+      
+<h1>Under Construction</h1>
+<div id='under-construction'>
+  <img src='static/img/under_construction.gif'></img>
+</div>
+<h2>Coming <span class='xmasify'>Christmas 2002!</span></h2>
+
+<script>
+  document.querySelectorAll('.xmasify').forEach((el) => {
+    let colorIndex = 0;
+    const tempEl = document.createElement('span');
+    for (const char of el.innerText.split("")) {
+      const tempCharEl = document.createElement('span');
+      tempCharEl.innerText = char;
+      if (char !== ' ') {
+        tempCharEl.setAttribute(
+          'style',
+          `color: ${colorIndex % 2 ? 'red' : 'green'}`
+        );
+        colorIndex++;
+      }
+      tempEl.appendChild(tempCharEl)
+    }
+    el.parentNode.replaceChild(tempEl, el);
+  });
+</script>
+    </main>
+    <footer>
+      
+        <a href='https://www.facebook.com/jburger424/' target='_blank'>facebook</a>
+        
+          &#183;
+        
+      
+        <a href='https://www.instagram.com/jons.burgers/' target='_blank'>instagram</a>
+        
+          &#183;
+        
+      
+        <a href='https://github.com/jburger424' target='_blank'>github</a>
+        
+          &#183;
+        
+      
+        <a href='https://www.linkedin.com/in/jon-burger/' target='_blank'>linkedin</a>
+        
+          &#183;
+        
+      
+        <a href='mailto: me@jonburger.dev' target='_blank'>contact</a>
+        
+      
+    </footer>
+  </body>
+</html>

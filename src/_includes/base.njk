@@ -1,0 +1,46 @@
+--- 
+title: jonburger.dev 
+footerLinks: [
+  { title: facebook, url: https://www.facebook.com/jburger424/ }, 
+  { title: instagram, url: https://www.instagram.com/jons.burgers/ }, 
+  { title: github, url: https://github.com/jburger424 }, 
+  { title: linkedin, url: https://www.linkedin.com/in/jon-burger/ }, 
+  { title: contact, url: 'mailto: me@jonburger.dev' } 
+] 
+---
+
+{% set titleFull %}
+{{title}}
+{% if subtitle %}
+  |
+  {{subtitle}}
+{% endif %}
+{% endset %}
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="robots" content="noindex">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link href="static/css/base.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <title>{{ titleFull }}</title>
+  </head>
+  <body>
+    <header>
+      <span id='title'>{{titleFull}}</span>
+    </header>
+    <main>
+      {{ content | safe }}
+    </main>
+    <footer>
+      {% for link in footerLinks %}
+        <a href='{{ link.url}}' target='_blank'>{{ link.title }}</a>
+        {% if not loop.last %}
+          &#183;
+        {% endif %}
+      {% endfor %}
+    </footer>
+  </body>
+</html>

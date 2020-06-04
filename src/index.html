@@ -1,0 +1,30 @@
+---
+subtitle: home
+layout: base.njk
+---
+
+<h1>Under Construction</h1>
+<div id='under-construction'>
+  <img src='static/img/under_construction.gif'></img>
+</div>
+<h2>Coming <span class='xmasify'>Christmas 2002!</span></h2>
+
+<script>
+  document.querySelectorAll('.xmasify').forEach((el) => {
+    let colorIndex = 0;
+    const tempEl = document.createElement('span');
+    for (const char of el.innerText.split("")) {
+      const tempCharEl = document.createElement('span');
+      tempCharEl.innerText = char;
+      if (char !== ' ') {
+        tempCharEl.setAttribute(
+          'style',
+          `color: ${colorIndex % 2 ? 'red' : 'green'}`
+        );
+        colorIndex++;
+      }
+      tempEl.appendChild(tempCharEl)
+    }
+    el.parentNode.replaceChild(tempEl, el);
+  });
+</script>
