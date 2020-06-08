@@ -1,0 +1,178 @@
+
+
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="robots" content="noindex">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link href="/static/css/base.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <title>
+jonburger.dev
+
+  |
+  thirty-three
+
+</title>
+  </head>
+  <body>
+    <header>
+      <span id='title'>
+jonburger.dev
+
+  |
+  thirty-three
+
+</span>
+    </header>
+    <main>
+      
+<style>
+    .thirty-three-wrapper {
+        width: 100;
+        height: 100%;
+        text-align: center;
+    }
+        
+    .thirty-three {
+        width: 500px;
+        height: 500px;
+        background: gray;
+    }
+
+    .thirty-three div[class^='row'] {
+        height: 20%;
+        width: 100;
+    }
+
+    .thirty-three div[class^='col'] {
+        height: 100%;
+        width: 20%;
+        display: inline-block;
+        line-height: 100px;
+    }
+</style>
+<div class='thirty-three-wrapper'>
+    <div class='thirty-three'></div>
+</div>
+
+<script>
+    class ThirthyThree {
+        ROWS = 5;
+        COLS = 5;
+
+        constructor() {
+            this.grid = this.buildGrid();
+        }
+
+        startGame() {
+            this.seen = {};
+            this.index = 1;
+            this.populateGrid();
+        }
+
+        buildGrid() {
+            const grid = document.querySelector('.thirty-three');
+            for(let y = 0; y < 5; y++) {
+                const row = document.createElement('div');
+                row.setAttribute('class', `row-${y}`);
+                for(let x = 0; x < 5; x++) {
+                    const col = document.createElement('div');
+                    col.setAttribute('class', `col-${x}`);
+                    col.setAttribute('x', x);
+                    col.setAttribute('y', y);
+                    col.addEventListener('click', (col) => this.onCellClick(col), {capture: true});
+                    row.appendChild(col);
+                }
+                grid.appendChild(row);
+            }
+            return grid;
+        }
+
+        setValue(x, y, value) {
+            document.querySelector(
+                `.thirty-three .row-${y} .col-${x}`
+            ).innerHTML = value;
+        }
+
+        randPos() {
+            return [
+                Math.floor(Math.random() * 5),
+                Math.floor(Math.random() * 5)
+            ]
+        }
+
+        populateCell(x, y) {
+            if(this.seen.size >= 32) {
+                    this.setValue(x,y,'');
+                    return;
+            } // TODO: Check complete.
+            let val;
+            if(!this.seen[this.index]) {
+                val = this.index;
+            } else {
+                do {
+                    val = Math.ceil(Math.random() * 33);
+                } while(this.seen[val]);
+            }
+            this.seen[val] = true;
+            this.setValue(x,y,val);
+        }
+
+        populateGrid() {
+            const startingPos = this.randPos();
+            this.populateCell(...startingPos);
+            for(let y = 0; y < this.ROWS; y++) {
+                for(let x = 0; x < this.COLS; x++) {
+                    if(!(x == startingPos[0] && y == startingPos[1])) {
+                        this.populateCell(x,y);
+                    }
+                }
+            }
+        }
+
+        onCellClick(event) {
+            const el = event.target;
+            console.log(el);
+            if(el.innerHTML == `${this.index}`) {
+                this.index ++;
+                const x = el.getAttribute('x');
+                const y = el.getAttribute('y');
+                if (this.index < 10) {
+                    this.populateCell(x,y);
+                } else {
+                    this.setValue(x,y,'---')
+                }
+                
+            }
+        }
+    }
+    const thirtyThree = new ThirthyThree().startGame();
+</script>
+
+    </main>
+    <footer>
+      
+        <a href='https://www.instagram.com/jons.burgers/' target='_blank'>instagram</a>
+        
+          &#183;
+        
+      
+        <a href='https://github.com/jburger424' target='_blank'>github</a>
+        
+          &#183;
+        
+      
+        <a href='https://www.linkedin.com/in/jon-burger/' target='_blank'>linkedin</a>
+        
+          &#183;
+        
+      
+        <a href='mailto: me@jonburger.dev' target='_blank'>email</a>
+        
+      
+    </footer>
+  </body>
+</html>
