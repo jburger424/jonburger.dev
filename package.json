@@ -4,10 +4,20 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.0"
+    "@11ty/eleventy": "^0.11.0",
+    "gts": "^2.0.2",
+    "typescript": "^3.8.3",
+    "@types/node": "^13.11.1"
   },
   "scripts": {
-    "build": "eleventy --input src",
-    "serve": "eleventy --input src --serve"
+    "build": "yarn run compile && eleventy --input src",
+    "serve": "eleventy --input src --serve",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "yarn run compile",
+    "pretest": "yarn run compile",
+    "posttest": "yarn run check"
   }
 }

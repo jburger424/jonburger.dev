@@ -1,0 +1,7 @@
+{
+  "extends": "./node_modules/gts/",
+  "ignorePatterns": "./_site/*",
+  "rules": {
+    "no-undef": "off"
+  }
+}

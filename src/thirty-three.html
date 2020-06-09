@@ -2,7 +2,7 @@
 subtitle: thirty-three
 layout: base.njk
 ---
-
+<script async src='/js/thirty-three.js'></script>
 <style>
     .thirty-three-wrapper {
         width: 100;
@@ -13,12 +13,13 @@ layout: base.njk
     .thirty-three {
         width: 500px;
         height: 500px;
+        margin: 0 auto;
         background: gray;
     }
 
     .thirty-three div[class^='row'] {
         height: 20%;
-        width: 100;
+        width: 100%;
     }
 
     .thirty-three div[class^='col'] {
@@ -26,102 +27,20 @@ layout: base.njk
         width: 20%;
         display: inline-block;
         line-height: 100px;
+        font-size: 2.5em;
+        user-select: none;
+    }
+    .thirty-three div[class^='col']:hover {
+        background: #797979;
+        cursor: pointer;
+    }
+    .thirty-three div[class^='col'].correct {
+        background: green;
+    }
+    .thirty-three div[class^='col'].incorrect {
+        background: red;
     }
 </style>
 <div class='thirty-three-wrapper'>
     <div class='thirty-three'></div>
 </div>
-
-<script>
-    class ThirthyThree {
-        ROWS = 5;
-        COLS = 5;
-
-        constructor() {
-            this.grid = this.buildGrid();
-        }
-
-        startGame() {
-            this.seen = {};
-            this.index = 1;
-            this.populateGrid();
-        }
-
-        buildGrid() {
-            const grid = document.querySelector('.thirty-three');
-            for(let y = 0; y < 5; y++) {
-                const row = document.createElement('div');
-                row.setAttribute('class', `row-${y}`);
-                for(let x = 0; x < 5; x++) {
-                    const col = document.createElement('div');
-                    col.setAttribute('class', `col-${x}`);
-                    col.setAttribute('x', x);
-                    col.setAttribute('y', y);
-                    col.addEventListener('click', (col) => this.onCellClick(col), {capture: true});
-                    row.appendChild(col);
-                }
-                grid.appendChild(row);
-            }
-            return grid;
-        }
-
-        setValue(x, y, value) {
-            document.querySelector(
-                `.thirty-three .row-${y} .col-${x}`
-            ).innerHTML = value;
-        }
-
-        randPos() {
-            return [
-                Math.floor(Math.random() * 5),
-                Math.floor(Math.random() * 5)
-            ]
-        }
-
-        populateCell(x, y) {
-            if(this.seen.size >= 32) {
-                    this.setValue(x,y,'');
-                    return;
-            } // TODO: Check complete.
-            let val;
-            if(!this.seen[this.index]) {
-                val = this.index;
-            } else {
-                do {
-                    val = Math.ceil(Math.random() * 33);
-                } while(this.seen[val]);
-            }
-            this.seen[val] = true;
-            this.setValue(x,y,val);
-        }
-
-        populateGrid() {
-            const startingPos = this.randPos();
-            this.populateCell(...startingPos);
-            for(let y = 0; y < this.ROWS; y++) {
-                for(let x = 0; x < this.COLS; x++) {
-                    if(!(x == startingPos[0] && y == startingPos[1])) {
-                        this.populateCell(x,y);
-                    }
-                }
-            }
-        }
-
-        onCellClick(event) {
-            const el = event.target;
-            console.log(el);
-            if(el.innerHTML == `${this.index}`) {
-                this.index ++;
-                const x = el.getAttribute('x');
-                const y = el.getAttribute('y');
-                if (this.index < 10) {
-                    this.populateCell(x,y);
-                } else {
-                    this.setValue(x,y,'---')
-                }
-                
-            }
-        }
-    }
-    const thirtyThree = new ThirthyThree().startGame();
-</script>
